@@ -1,6 +1,6 @@
 import qrcode
 
-def qr_ascii_half_block(uri: str, background: bool) -> str:
+def qr_ascii_half_block(uri: str, background: bool, long: bool = False) -> str:
     qr = qrcode.QRCode(
         version=None,
         error_correction=qrcode.constants.ERROR_CORRECT_M,
@@ -11,7 +11,7 @@ def qr_ascii_half_block(uri: str, background: bool) -> str:
     qr.make(fit=True)
 
     matrix = qr.get_matrix()
-    if len(matrix[0]) > 41:
+    if len(matrix[0]) > 41 and long == False:
         return "too long"
 
     lines = []

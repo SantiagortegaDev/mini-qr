@@ -13,7 +13,8 @@ console = Console()
 dotenv.load_dotenv()
 
 # i don't use the prefix because it's only slash commands but i don't know what i'm doing man
-bot = commands.Bot(command_prefix="!qr!", intents=None)
+# edit: i discover i can put None and it doesn't show again the warning for the message intent permision
+bot = commands.Bot(command_prefix=None, intents=None)
 
 
 @bot.event
@@ -36,6 +37,20 @@ async def on_ready():
             expand=False,
         )
     )
+    # if you don't try the bot here is what it shows, it's beautiful but i know no one is going to see except you :)
+
+    #2026-09-26 22:41:55 INFO     discord.client logging in using static token
+    #2026-09-26 22:41:57 INFO     discord.gateway Shard ID None has connected to Gateway (Session ID: fcf7a3e9d568296758a1918fe435f2a0).
+    #╭────── Bot Online! ──────╮
+    #│ Name: Mini Qr#0262      │
+    #│ ID: 1550911077712142336 │
+    #│ Servers: 1              │
+    #│ Ping: 146ms             │
+    #╰─────────────────────────╯
+
+    # it has colors so if you can run it to see it
+
+
     await bot.tree.sync()
 
 
@@ -54,15 +69,9 @@ class Qr_modal(discord.ui.Modal):
 
 
 @bot.tree.command(name='qr', description='Generate a simple QR code')
-async def qr_command(interaction: discord.Interaction, contenido: str, invert_colors: bool):
+async def qr_command(interaction: discord.Interaction, contenido: str, invert_colors: bool = False):
     ascii_qr = qr_ascii_half_block(contenido, invert_colors)
     await interaction.response.send_modal(Qr_modal(qrcode=ascii_qr))
-
-
-@bot.command(name="qr")
-async def qr_command(ctx, *, contenido: str):
-    ascii_qr = qr_ascii_half_block(contenido)
-    await ctx.send(f"```\n{ascii_qr}\n```")
 
 
 bot.run(os.getenv("DISCORD_TOKEN"))
