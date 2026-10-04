@@ -16,6 +16,16 @@ dotenv.load_dotenv()
 # edit: i discover i can put None and it doesn't show again the warning for the message intent permision
 bot = commands.Bot(command_prefix=None, intents=None)
 
+class apicontainer(discord.ui.LayoutView):    
+    container1 = discord.ui.Container(
+        discord.ui.TextDisplay(content="# Mini QR API"),
+        discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small),
+        discord.ui.TextDisplay(content="## - Status\n**GET** `https://miniqr.alwaysdata.net/api`\n```ansi\n\u001b[0;2m{ \u001b[0;32m\"status\" \u001b[0m: \u001b[0;33m\"ok\"\u001b[0m ,\n\u001b[0;32m  \"name\"\u001b[0m :\u001b[0;33m \"Mini Qr\" \u001b[0m,\n\u001b[0;32m\u001b[0;32m  \"creator\"\u001b[0m\u001b[0;32m\u001b[0m : \u001b[0;33m\"@santiagortega\"\u001b[0m }\u001b[0m\n```"),
+        discord.ui.Separator(visible=True, spacing=discord.SeparatorSpacing.small),
+        discord.ui.TextDisplay(content="## - Generate QR\n**GET** `https://miniqr.alwaysdata.net/api/v1/qr?content=hello!`\n(Response in plain text)\n```ansi\n                         \n  █▀▀▀▀▀█ █▀ ▄█ █▀▀▀▀▀█  \n  █ ███ █ ▄▀█ ▄ █ ███ █  \n  █ ▀▀▀ █  █    █ ▀▀▀ █  \n  ▀▀▀▀▀▀▀ █ ▀ ▀ ▀▀▀▀▀▀▀  \n  █▄▀▀▄▀▀▀▄▄█ ▄ ▀▄ █▄▀█  \n  ▄▄▀█▀▄▀ █▀▄ ██▀▀▀▄ █▀  \n  ▀▀  ▀▀▀▀▄ █▀ █  ▀ ▄ ▀  \n  █▀▀▀▀▀█ █▀▄▄▄██ ▀▄▄ ▄  \n  █ ███ █ ▄█▄▀ ▄▀  ███▀  \n  █ ▀▀▀ █ ▀█▀█▄▀▄█▄ ▀ ▄  \n  ▀▀▀▀▀▀▀ ▀ ▀▀▀  ▀  ▀    \n```\n- **content**: str *\n- **invert**: bool = False\n- **raw**: bool = False (it return the qr in a json response)\n- **long**: bool = False (it bypass the discord bot character limit)"),
+    )
+
+
 
 @bot.event
 async def on_ready():
@@ -72,6 +82,10 @@ class Qr_modal(discord.ui.Modal):
 async def qr_command(interaction: discord.Interaction, contenido: str, invert_colors: bool = False):
     ascii_qr = qr_ascii_half_block(contenido, invert_colors)
     await interaction.response.send_modal(Qr_modal(qrcode=ascii_qr))
+
+@bot.tree.command(name='api', description='See how to generate a QR code with our api')
+async def api_command(interaction: discord.Interaction):
+    await interaction.response.send_message(view=apicontainer())
 
 
 bot.run(os.getenv("DISCORD_TOKEN"))

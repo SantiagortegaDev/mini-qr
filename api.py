@@ -1,8 +1,27 @@
 from fastapi import FastAPI
 from qr_utils import qr_ascii_half_block
 from fastapi.responses import PlainTextResponse, JSONResponse
-app = FastAPI()
+import subprocess
+import sys
+from contextlib import asynccontextmanager
 
+
+process = None
+#my host only execute 1 python file soo i need to run in background the bot
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global process
+    process = subprocess.Popen([sys.executable, "-u", "bot.py"])
+    print(f"Bot started PID: {process.pid})")
+    yield
+    process.terminate()
+    try:
+        process.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        process.kill()
+    print("Bot killed")
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/api")
 async def root():
