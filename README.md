@@ -16,9 +16,9 @@ for deafult this is the qr style but if you invert it you get the classic qr cod
 ## Api
 why not made a api? it's simple just like the discord bot
 
-GET: "http://localhost/api/v1/qr?content=hello!"
+**GET** 'http://localhost/api/v1/qr?content=hello!'
 
-![hola](assets/hello_qr.png) 
+![screenshot](assets/hello_qr.png) 
 
 
 - **content**: str *
@@ -27,6 +27,9 @@ GET: "http://localhost/api/v1/qr?content=hello!"
 - **long**: bool = False (it bypass the discord bot character limit)
 
 ## Invert
-here are some screenshot of the invert (clasical) version of the qr code
+here is a screenshot of the invert (clasical) version of the qr code
 
-soon :)
+![screenshot](assets/invert_qr.png)
+
+## IA?
+only for debug, i have already work with the discord api and make a lot of discord bots (privates)

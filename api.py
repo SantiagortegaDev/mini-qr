@@ -11,10 +11,16 @@ async def root():
 
 @app.get("/api/v1/qr")
 def read_item(content: str, invert: bool = False, raw: bool = False, long: bool = False):
-
+    if content:
+     print(f"New api request:")
+     print(f"Content={content}")
+     print(f"Invert={invert}")
+     print(f"Long={long}")
     qr=qr_ascii_half_block(content, invert, long)
     if "too long" in qr:
-       return JSONResponse(content={"error": "the qr content is too long, try with &long=true"})
+       print("Response= error : the qr content is too long, try with &long=true")
+       print("Code=400")
+       return JSONResponse(content={"error": "the qr content is too long, try with &long=true"}, status_code=400)
     if raw:
      return JSONResponse(content={"qr": qr})
     else:
