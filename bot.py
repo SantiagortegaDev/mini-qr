@@ -87,5 +87,27 @@ async def qr_command(interaction: discord.Interaction, contenido: str, invert_co
 async def api_command(interaction: discord.Interaction):
     await interaction.response.send_message(view=apicontainer())
 
-
-bot.run(os.getenv("DISCORD_TOKEN"))
+try:
+ bot.run(os.getenv("DISCORD_TOKEN"))
+except discord.errors.LoginFailure:
+    info = Text()
+    info.append(f"Bot token invalid: ", style="bold red")
+    info.append(f"Improper token has been passed.\n\n", style="black")
+    info.append(f"Check the discord developers panel and the .env file", style="bold white")
+    console.print(
+            Panel(
+                info,
+                title="[bold red]Bot Error[/bold red]",
+                border_style="red",
+                expand=False,
+            )
+        )
+    #new error message!
+    #$ python bot.py
+    #2026-10-05 21:42:42 INFO     discord.client logging in using static token
+    #╭───────────────────── Bot Error ──────────────────────╮
+    #│ Bot token invalid: Improper token has been passed.   │
+    #│                                                      │
+    #│ Check the discord developers panel and the .env file │
+    #╰──────────────────────────────────────────────────────╯
+    #it looks better in terminal with the colors

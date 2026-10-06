@@ -5,6 +5,7 @@ A simple **discord bot** and **api** to generate qr code in ascii
 A simple command to generate a qr and show it in a modal
 
 - **/qr** [content] (invert)
+- **/api** send the api docs
 
 for deafult this is the qr style but if you invert it you get the classic qr code with a white background
 
