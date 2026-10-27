@@ -29,6 +29,7 @@ class apicontainer(discord.ui.LayoutView):
 
 @bot.event
 async def on_ready():
+    #this is only decoration, anything funtional, and it only show in terminal so is a litle bit sad
     info = Text()
     info.append(f"Name: ", style="dim")
     info.append(f"{bot.user}\n", style="bold white")
