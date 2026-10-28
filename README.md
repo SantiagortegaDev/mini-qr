@@ -17,7 +17,7 @@ for deafult this is the qr style but if you invert it you get the classic qr cod
 ## Api
 why not made a api? it's simple just like the discord bot
 
-**GET** 'http://localhost/api/v1/qr?content=hello!'
+**GET** 'https://miniqr.santiagortega.dev/api/v1/qr?content=hello!'
 
 ![screenshot](assets/hello_qr.png) 
 
