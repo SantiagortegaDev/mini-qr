@@ -4,6 +4,8 @@ A simple **discord bot** and **api** to generate qr code in ascii
 ## Discord Bot
 A simple command to generate a qr and show it in a modal
 
+Invite Bot: https://discord.com/oauth2/authorize?client_id=1550911077712142336
+
 - **/qr** [content] (invert)
 - **/api** send the api docs
 
